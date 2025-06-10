@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-function Todo({ id, text, onDelete, onEdit }) {
+function Todo({ id, text, completed, onDelete, onEdit, onToggle }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(text);
 
@@ -13,8 +13,10 @@ function Todo({ id, text, onDelete, onEdit }) {
   return (
     <div className="m-[10px] bg-blue-100 h-[40px] flex items-center rounded-sm">
       <input
-        className="bg-blue-900 h-[15px] w-[15px] ml-[10px]"
+        className="h-[15px] w-[15px] ml-[10px]"
         type="checkbox"
+        checked={completed}
+        onChange={() => onToggle(id)}
       />
       {isEditing ? (
         <input
@@ -26,14 +28,16 @@ function Todo({ id, text, onDelete, onEdit }) {
       ) : (
         <label
           id="label-data"
-          className="ml-[10px] bg-green-400 h-[30px] w-[75%] flex items-center overflow-hidden "
+          className={`ml-[10px] h-[30px] w-[75%] flex items-center overflow-hidden ${
+            completed && "line-through text-gray-500"
+          }`}
         >
           {text}
         </label>
       )}
-     {isEditing ? (
+      {isEditing ? (
         <button
-          className="h-[30px] w-[30px] text-1xl bg-green-500 flex justify-center items-center ml-[4px]"
+          className="h-[30px] w-[30px] text-1xl flex justify-center items-center ml-[4px]"
           title="Save"
           onClick={handleSave}
         >
@@ -41,7 +45,7 @@ function Todo({ id, text, onDelete, onEdit }) {
         </button>
       ) : (
         <button
-          className="h-[30px] w-[30px] text-1xl bg-blue-950 flex justify-center items-center ml-[4px]"
+          className="h-[30px] w-[30px] text-1xl flex justify-center items-center ml-[4px]"
           title="Edit"
           onClick={() => setIsEditing(true)}
         >
@@ -49,7 +53,7 @@ function Todo({ id, text, onDelete, onEdit }) {
         </button>
       )}
       <button
-        className="h-[30px] w-[30px] text-2xl bg-red-200 flex justify-center
+        className="h-[30px] w-[30px] text-2xl flex justify-center
         items-center ml-[4px]"
         title="Delete"
         onClick={() => {
