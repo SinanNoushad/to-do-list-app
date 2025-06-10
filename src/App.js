@@ -37,7 +37,7 @@ function App() {
       <p className="text-2xl font-bold mt-[30px]">TODO LIST</p>
       <div className="mt-[20px] h-[40px] w-[90%] flex flex-row justify-start">
         <input
-          className="h-[100%] w-[89%] mr-[1%] rounded-sm bg-blue-300"
+          className="h-[100%] w-[89%] mr-[1%] rounded-sm bg-blue-300 pl-[10px]"
           value={inputValue}
           onChange={(e) => {
             setInputValue(e.target.value);
